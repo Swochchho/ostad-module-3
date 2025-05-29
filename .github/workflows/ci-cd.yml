@@ -11,12 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
@@ -24,10 +25,10 @@ jobs:
       - name: Run tests
         run: |
           mkdir -p test-results
-          npm test > test-results/results.txt || true
+          npm test | tee test-results/results.txt
 
       - name: Upload test results
-        uses: actions/upload-artifact@v3.1.3
+        uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: test-results/results.txt
@@ -35,23 +36,34 @@ jobs:
   deploy:
     needs: test
     runs-on: [self-hosted, linux]
-
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download test results
-        uses: actions/download-artifact@v3.1.3
+        uses: actions/download-artifact@v4
         with:
           name: test-results
+          path: test-results/
 
       - name: Display test results
         run: cat test-results/results.txt
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
 
       - name: Install dependencies
         run: npm install
 
       - name: Start application
         run: |
+          # Stop existing application if running
           pm2 delete app || true
+
+          # Start the application
           pm2 start index.js --name app
+
+          # Show PM2 status
+          pm2 status
