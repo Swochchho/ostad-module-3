@@ -33,7 +33,7 @@ jobs:
 
   deploy:
     needs: test
-    runs-on: self-hosted  
+    runs-on: ostad-runner  # Your Windows self-hosted runner
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -45,7 +45,7 @@ jobs:
           path: test-results/
 
       - name: Display test results
-        run: type test-results\results.txt 
+        run: type test-results\results.txt
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -57,6 +57,19 @@ jobs:
 
       - name: Start application
         run: |
-          pm2 delete app || exit 0
+          try {
+            pm2 delete app
+            Write-Host "Stopped existing app"
+          } catch {
+            Write-Host "No existing app to delete"
+          }
           pm2 start index.js --name app
+          pm2 save
           pm2 status
+        shell: powershell
+
+      - name: Ensure PM2 runs on startup (optional)
+        run: |
+          pm2 startup
+          pm2 save
+        shell: powershell
