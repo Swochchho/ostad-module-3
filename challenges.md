@@ -3,7 +3,7 @@ Challenges Faced During CI/CD Pipeline Setup
 
 1. Deleted Workflow Logs
 - Accidentally deleted old workflow logs.
-- Only the last four successful runs are available for reference.
+- Only the last few successful runs are available for reference.
 
 2. Missing Test Script
 - The initial test job failed due to the absence of a test script in `package.json`.
