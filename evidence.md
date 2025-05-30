@@ -24,3 +24,8 @@
 ![image](https://github.com/user-attachments/assets/03e3e134-30a3-40c5-b77b-7e21ef168e50)
 
 
+5. Site running at http://localhost:3000/:
+![Screenshot 2025-05-30 232308](https://github.com/user-attachments/assets/790178e8-c8fa-421d-9425-07d6b72086d4)
+
+
+
