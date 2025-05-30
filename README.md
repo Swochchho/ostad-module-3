@@ -41,6 +41,12 @@ npm start
    ```
       ```bash
    /api # this will response a json
+
+
+### 📁 Additional Documentation
+
+- [Evidence of CI/CD Workflow](./evidence.md)
+- [Challenges Faced During Setup](./challenges.md)
    ```
 
 2. **Default Port**: By Default this application will run on port 3000
