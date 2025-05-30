@@ -24,3 +24,5 @@ Challenges Faced During CI/CD Pipeline Setup
 - Workflow was configured for `index.js`, but my entry point was `src/server.js`.
 - *Solution:* Adjusted deployment scripts and PM2 configuration accordingly.
 
+
+Author: Adib Azfer
